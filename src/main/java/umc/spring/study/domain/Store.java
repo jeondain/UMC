@@ -22,5 +22,5 @@ public class Store extends BaseEntity {
 
     private String address;
 
-    private Float score;
+    private Float score1;
 }
