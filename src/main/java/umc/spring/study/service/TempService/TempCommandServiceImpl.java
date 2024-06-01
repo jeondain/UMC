@@ -5,10 +5,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TempCommandServiceImpl implements TempQueryService{
+public class TempCommandServiceImpl implements TempCommandService{
 
-    @Override
-    public void CheckFlag(Integer flag) {
-
-    }
 }
