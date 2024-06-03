@@ -6,32 +6,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.spring.study.apiPayload.code.status.ErrorStatus;
 import umc.spring.study.repository.RegionRepository;
-import umc.spring.study.validation.annotation.ExistCategories;
-
-import java.util.List;
+import umc.spring.study.validation.annotation.ExistRegion;
 
 @Component
 @RequiredArgsConstructor
-public class RegionExistValidator implements ConstraintValidator<ExistCategories, List<Long>> {
+public class RegionExistValidator implements ConstraintValidator<ExistRegion, Long> {
 
     private final RegionRepository regionRepository;
 
     @Override
-    public void initialize(ExistCategories constraintAnnotation) {
+    public void initialize(ExistRegion constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
-    public boolean isValid(List<Long> values, ConstraintValidatorContext context) {
-        boolean isValid = values.stream()
-                .allMatch(value -> regionRepository.existsById(value));
+    public boolean isValid(Long value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
 
+        boolean isValid = regionRepository.existsById(value);
         if (!isValid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(ErrorStatus.REGION_NOT_FOUND.toString()).addConstraintViolation();
         }
 
         return isValid;
-
     }
 }

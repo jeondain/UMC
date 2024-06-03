@@ -2,12 +2,12 @@ package umc.spring.study.validation.annotation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import umc.spring.study.validation.validator.CategoriesExistValidator;
+import umc.spring.study.validation.validator.RegionExistValidator;
 
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = CategoriesExistValidator.class)
+@Constraint(validatedBy = RegionExistValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExistRegion {
