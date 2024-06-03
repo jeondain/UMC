@@ -1,9 +1,12 @@
 package umc.spring.study.converter;
 
 import umc.spring.study.domain.Region;
+import umc.spring.study.domain.Review;
 import umc.spring.study.domain.Store;
 import umc.spring.study.web.dto.StoreRequestDTO;
 import umc.spring.study.web.dto.StoreResponseDTO;
+
+import java.time.LocalDateTime;
 
 public class StoreConverter {
 
@@ -20,6 +23,21 @@ public class StoreConverter {
                 .name(request.getName())
                 .address(request.getAddress())
                 .region(region)
+                .build();
+    }
+
+    public static StoreResponseDTO.CreateReviewResultDTO toCreateReviewResultDTO(Review review){
+        return StoreResponseDTO.CreateReviewResultDTO.builder()
+                .reviewId(review.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static Review toReview(StoreRequestDTO.ReveiwDto request){
+        return Review.builder()
+                .title(request.getTitle())
+                .score(request.getScore())
+                .body(request.getBody())
                 .build();
     }
 }
