@@ -39,6 +39,7 @@ public class MemberConverter {
                 .gender(gender)
                 .name(request.getName())
                 .memberPreferList(new ArrayList<>())
+                .memberMissionList(new ArrayList<>())
                 .build();
     }
 }

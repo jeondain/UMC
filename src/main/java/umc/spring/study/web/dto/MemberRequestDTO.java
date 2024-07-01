@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import umc.spring.study.validation.annotation.ExistCategories;
+import umc.spring.study.validation.annotation.UniqueMemberMission;
 
 import java.util.List;
 
@@ -28,5 +29,7 @@ public class MemberRequestDTO {
         String specAddress;
         @ExistCategories
         List<Long> preferCategory;
+        @UniqueMemberMission
+        List<Long> memberMission;
     }
 }
