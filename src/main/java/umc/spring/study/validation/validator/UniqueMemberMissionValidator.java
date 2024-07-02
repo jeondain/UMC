@@ -23,14 +23,15 @@ public class UniqueMemberMissionValidator implements ConstraintValidator<UniqueM
 
     @Override
     public boolean isValid(List<Long> values, ConstraintValidatorContext context) {
-        boolean isValid = values.stream()
-                .allMatch(value -> !memberMissionRepository.existsById(value));
+        boolean isChallenging =  values.stream()
+                .allMatch(value -> memberMissionRepository.existsByMissionId(value));
 
-        if (!isValid) {
+        if (isChallenging) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(ErrorStatus.MEMBER_MISSION_ALREADY_EXISTS.toString()).addConstraintViolation();
+            return false;
         }
 
-        return isValid;
+        return !isChallenging;
     }
 }

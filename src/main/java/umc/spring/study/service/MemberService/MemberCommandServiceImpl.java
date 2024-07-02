@@ -49,7 +49,7 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
         List<Mission> missionList = request.getMemberMission().stream()
                 .map(missionId -> missionRepository.findById(missionId)
-                        .orElseThrow(() -> new MemberMissionHandler(ErrorStatus.MEMBER_MISSION_ALREADY_EXISTS)))
+                        .orElseThrow(() -> new MemberMissionHandler(ErrorStatus.MISSION_NOT_FOUND)))
                 .collect(Collectors.toList());
 
         List<MemberMission> memberMissionList = MemberMissionConverter.toMemberMissionList(missionList);
