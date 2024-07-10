@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import umc.spring.study.apiPayload.ApiResponse;
 import umc.spring.study.converter.StoreConverter;
@@ -60,7 +61,7 @@ public class StoreRestController {
             @Parameter(name = "page", description = "페이지 번호, 0번이 1페이지 입니다."),
     })
     public ApiResponse<StoreResponseDTO.ReviewPreViewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId, @CheckPage @RequestParam(name = "page") Integer page){
-        storeQueryService.getReviewList(storeId,page - 1);
-        return null;
+        Page<Review> reviews = storeQueryService.getReviewList(storeId, page - 1);
+        return ApiResponse.onSuccess(StoreConverter.reviewPreViewListDTO(reviews));
     }
 }
