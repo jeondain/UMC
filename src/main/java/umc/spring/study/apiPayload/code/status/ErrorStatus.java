@@ -32,7 +32,7 @@ public enum ErrorStatus implements BaseErrorCode {
     MEMBER_MISSION_ALREADY_EXISTS(HttpStatus.CONFLICT, "MEMBER_MISSION_4001", "해당 미션이 이미 멤버에게 할당되어 있습니다."),
 
     //Mission Error
-    MISSION_NOT_FOUND(HttpStatus.CONFLICT, "MISSION_4001", "해당하는 미션이 존재하지 않습니다."),
+    MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION_4001", "해당하는 미션이 존재하지 않습니다."),
 
     // Store Error
     REGION_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE4001", "해당하는 지역이 존재하지 않습니다."),

@@ -1,6 +1,7 @@
 package umc.spring.study.converter;
 
 import org.springframework.data.domain.Page;
+import umc.spring.study.domain.Mission;
 import umc.spring.study.domain.Region;
 import umc.spring.study.domain.Review;
 import umc.spring.study.domain.Store;
@@ -44,7 +45,7 @@ public class StoreConverter {
                 .build();
     }
 
-    public static StoreResponseDTO.ReviewPreViewDTO reviewPreViewDTO(Review review) {
+    public static StoreResponseDTO.ReviewPreViewDTO toReviewPreViewDTO(Review review) {
         return StoreResponseDTO.ReviewPreViewDTO.builder()
                 .ownerNickname(review.getMember().getName())
                 .score(review.getScore())
@@ -53,10 +54,10 @@ public class StoreConverter {
                 .build();
     }
 
-    public static StoreResponseDTO.ReviewPreViewListDTO reviewPreViewListDTO(Page<Review> reviewList) {
+    public static StoreResponseDTO.ReviewPreViewListDTO toReviewPreViewListDTO(Page<Review> reviewList) {
 
         List<StoreResponseDTO.ReviewPreViewDTO> reviewPreViewDTOList = reviewList.stream()
-                .map(StoreConverter::reviewPreViewDTO).collect(Collectors.toList());
+                .map(StoreConverter::toReviewPreViewDTO).collect(Collectors.toList());
 
         return StoreResponseDTO.ReviewPreViewListDTO.builder()
                 .isLast(reviewList.isLast())
@@ -65,6 +66,30 @@ public class StoreConverter {
                 .totalElements(reviewList.getTotalElements())
                 .listSize(reviewPreViewDTOList.size())
                 .reviewList(reviewPreViewDTOList)
+                .build();
+    }
+    public static StoreResponseDTO.MissionPreViewDTO toMissionPreViewDTO(Mission mission) {
+        return StoreResponseDTO.MissionPreViewDTO.builder()
+                .ownerStore(mission.getStore().getName())
+                .reward(mission.getReward())
+                .deadline(mission.getDeadline())
+                .missionSpec(mission.getMissionSpec())
+                .createdAt(mission.getCreatedAt().toLocalDate())
+                .build();
+    }
+
+    public static StoreResponseDTO.MissionPreViewListDTO toMissionPreViewListDTO(Page<Mission> missionList) {
+
+        List<StoreResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(StoreConverter::toMissionPreViewDTO).collect(Collectors.toList());
+
+        return StoreResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
                 .build();
     }
 }
